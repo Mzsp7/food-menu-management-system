@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Delicious Food</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-header {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .login-header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .login-form {
+            padding: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        .form-group input.error {
+            border-color: #dc3545;
+        }
+
+        .error-message {
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: auto;
+        }
+
+        .forgot-password {
+            color: #28a745;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .login-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            border: none;
+            padding: 0.875rem;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .login-btn:disabled {
+            background: #6c757d;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        .register-link {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #e9ecef;
+        }
+
+        .register-link a {
+            color: #28a745;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+            color: white;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #28a745;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .demo-credentials {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .demo-credentials h4 {
+            margin: 0 0 0.5rem 0;
+            color: #0066cc;
+        }
+
+        .demo-credentials p {
+            margin: 0.25rem 0;
+            font-family: monospace;
+            background: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+
+        .demo-credentials p:hover {
+            background: #f0f8ff;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 1rem;
+            }
+            
+            .login-header {
+                padding: 1.5rem;
+            }
+            
+            .login-form {
+                padding: 1.5rem;
+            }
+            
+            .remember-forgot {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index-landing.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="login-container">
+        <div class="login-header">
+            <h1><i class="fas fa-sign-in-alt"></i> Welcome Back</h1>
+            <p>Login to order delicious food</p>
+        </div>
+
+        <div class="login-form">
+            <div class="demo-credentials">
+                <h4><i class="fas fa-info-circle"></i> Demo Account:</h4>
+                <p onclick="fillDemo()" title="Click to auto-fill">Email: demo@user.com</p>
+                <p onclick="fillDemo()" title="Click to auto-fill">Password: user123</p>
+            </div>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                    <div class="error-message" id="email-error">Please enter a valid email address</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                    <div class="error-message" id="password-error">Please enter your password</div>
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+
+                <button type="submit" class="login-btn" id="login-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login
+                </button>
+            </form>
+
+            <div class="loading" id="loading">
+                <div class="spinner"></div>
+                <p>Logging you in...</p>
+            </div>
+
+            <div class="register-link">
+                <p>Don't have an account? <a href="user-register.html">Register here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('login-form');
+            const emailInput = document.getElementById('email');
+            const passwordInput = document.getElementById('password');
+
+            // Auto-fill demo credentials
+            window.fillDemo = function() {
+                emailInput.value = 'demo@user.com';
+                passwordInput.value = 'user123';
+            };
+
+            // Form submission
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                if (validateForm()) {
+                    submitForm();
+                }
+            });
+
+            function validateForm() {
+                let isValid = true;
+                
+                // Clear previous errors
+                document.querySelectorAll('.error-message').forEach(msg => {
+                    msg.style.display = 'none';
+                });
+                document.querySelectorAll('input').forEach(input => {
+                    input.classList.remove('error');
+                });
+
+                // Validate email
+                const email = emailInput.value.trim();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    showError('email', 'Please enter a valid email address');
+                    isValid = false;
+                }
+
+                // Validate password
+                const password = passwordInput.value;
+                if (password.length < 3) {
+                    showError('password', 'Please enter your password');
+                    isValid = false;
+                }
+
+                return isValid;
+            }
+
+            function showError(fieldId, message) {
+                const field = document.getElementById(fieldId);
+                const errorMsg = document.getElementById(fieldId + '-error');
+                
+                field.classList.add('error');
+                errorMsg.textContent = message;
+                errorMsg.style.display = 'block';
+            }
+
+            function submitForm() {
+                const email = emailInput.value.trim();
+                const password = passwordInput.value;
+                const remember = document.getElementById('remember').checked;
+                
+                // Show loading
+                form.style.display = 'none';
+                document.getElementById('loading').style.display = 'block';
+                
+                // Simulate API call
+                setTimeout(() => {
+                    // Check demo credentials
+                    if (email === 'demo@user.com' && password === 'user123') {
+                        // Store user session
+                        const userData = {
+                            id: 1,
+                            email: email,
+                            fullName: 'Demo User',
+                            phone: '9876543210',
+                            address: '123 Demo Street, Demo City',
+                            loginTime: new Date().toISOString()
+                        };
+                        
+                        if (remember) {
+                            localStorage.setItem('currentUser', JSON.stringify(userData));
+                        } else {
+                            sessionStorage.setItem('currentUser', JSON.stringify(userData));
+                        }
+                        
+                        // Redirect to user panel
+                        window.location.href = 'user-panel.html';
+                    } else {
+                        // Check registered users
+                        const users = JSON.parse(localStorage.getItem('registeredUsers') || '[]');
+                        const user = users.find(u => u.email === email && u.password === password);
+                        
+                        if (user) {
+                            // Store user session
+                            const userData = {
+                                id: user.id,
+                                email: user.email,
+                                fullName: user.fullName,
+                                phone: user.phone,
+                                address: user.address,
+                                loginTime: new Date().toISOString()
+                            };
+                            
+                            if (remember) {
+                                localStorage.setItem('currentUser', JSON.stringify(userData));
+                            } else {
+                                sessionStorage.setItem('currentUser', JSON.stringify(userData));
+                            }
+                            
+                            // Redirect to user panel
+                            window.location.href = 'user-panel.html';
+                        } else {
+                            // Hide loading and show error
+                            document.getElementById('loading').style.display = 'none';
+                            form.style.display = 'block';
+                            showError('password', 'Invalid email or password');
+                        }
+                    }
+                }, 1500);
+            }
+        });
+    </script>
+</body>
+</html>

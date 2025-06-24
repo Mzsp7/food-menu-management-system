@@ -1,0 +1,39 @@
+{
+  "name": "food-menu-management-system",
+  "version": "1.0.0",
+  "description": "A comprehensive food menu management system with admin panel and customer ordering interface",
+  "main": "index-landing.html",
+  "scripts": {
+    "dev": "php -S localhost:8000",
+    "build": "echo 'Static site - no build required'",
+    "start": "echo 'Static site deployed'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "food",
+    "menu",
+    "restaurant",
+    "management",
+    "ordering",
+    "admin",
+    "customer",
+    "php",
+    "mysql",
+    "javascript"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Mzsp7/food-menu-management-system.git"
+  },
+  "homepage": "https://food-menu-management-system-mzsp7.vercel.app",
+  "bugs": {
+    "url": "https://github.com/Mzsp7/food-menu-management-system/issues"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "devDependencies": {},
+  "dependencies": {}
+}

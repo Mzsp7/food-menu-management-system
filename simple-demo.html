@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu Management System - Working Demo</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .setup-notice {
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        .setup-notice h2 {
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+        }
+        .setup-notice p {
+            margin: 0.5rem 0;
+            opacity: 0.95;
+        }
+        .setup-steps {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        .setup-steps h3 {
+            color: #495057;
+            margin-top: 0;
+        }
+        .step {
+            background: white;
+            border-left: 4px solid #007bff;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 0 5px 5px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .step h4 {
+            margin: 0 0 0.5rem 0;
+            color: #007bff;
+        }
+        .step code {
+            background: #f1f3f4;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+        }
+        .download-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        .download-btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            font-weight: 500;
+        }
+        .download-btn:hover {
+            background: #0056b3;
+            color: white;
+        }
+        .download-btn.xampp {
+            background: #ff6b35;
+        }
+        .download-btn.xampp:hover {
+            background: #e55a2b;
+        }
+        .working-demo {
+            text-align: center;
+            margin: 2rem 0;
+        }
+        .demo-btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+        .demo-btn:hover {
+            background: #218838;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(40, 167, 69, 0.4);
+            color: white;
+        }
+        .status-check {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .status-check h4 {
+            color: #856404;
+            margin: 0 0 0.5rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="setup-notice">
+        <h2><i class="fas fa-exclamation-triangle"></i> Server Setup Required</h2>
+        <p>The Food Menu Management System requires PHP and MySQL to run the full backend functionality.</p>
+        <p>Follow the steps below to set up your local development environment.</p>
+    </div>
+
+    <div class="container" style="max-width: 1000px; margin: 0 auto; padding: 0 1rem;">
+        
+        <div class="working-demo">
+            <h2>🎯 Try the Working Demo First!</h2>
+            <p>While you set up PHP, you can explore the frontend features:</p>
+            <a href="demo.html" class="demo-btn">
+                <i class="fas fa-play"></i> View Working Demo
+            </a>
+        </div>
+
+        <div class="setup-steps">
+            <h3><i class="fas fa-download"></i> Quick Setup - Install XAMPP (Recommended)</h3>
+            
+            <div class="step">
+                <h4>Step 1: Download XAMPP</h4>
+                <p>XAMPP includes PHP, MySQL, and Apache web server in one package.</p>
+                <div class="download-links">
+                    <a href="https://www.apachefriends.org/download.html" class="download-btn xampp" target="_blank">
+                        <i class="fas fa-download"></i> Download XAMPP
+                    </a>
+                </div>
+            </div>
+
+            <div class="step">
+                <h4>Step 2: Install XAMPP</h4>
+                <p>Run the installer and install XAMPP (usually to <code>C:\xampp</code>)</p>
+                <p>✅ Select: Apache, MySQL, PHP, phpMyAdmin</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 3: Start Services</h4>
+                <p>Open XAMPP Control Panel and start:</p>
+                <p>✅ <strong>Apache</strong> (web server)</p>
+                <p>✅ <strong>MySQL</strong> (database)</p>
+                <p>Both should show green "Running" status.</p>
+            </div>
+
+            <div class="step">
+                <h4>Step 4: Copy Project Files</h4>
+                <p>Copy your project folder to XAMPP's web directory:</p>
+                <p><strong>From:</strong> <code>C:\Users\mzsp7\Music\Projects\food menu system</code></p>
+                <p><strong>To:</strong> <code>C:\xampp\htdocs\food-menu-system</code></p>
+            </div>
+
+            <div class="step">
+                <h4>Step 5: Set Up Database</h4>
+                <p>1. Open <a href="http://localhost/phpmyadmin" target="_blank">phpMyAdmin</a></p>
+                <p>2. Create new database: <code>food_menu_system</code></p>
+                <p>3. Import the file: <code>database/schema.sql</code></p>
+            </div>
+
+            <div class="step">
+                <h4>Step 6: Access Your Application</h4>
+                <p>Open your browser and go to:</p>
+                <p><strong><a href="http://localhost/food-menu-system" target="_blank">http://localhost/food-menu-system</a></strong></p>
+                <p>Login with: <code>admin</code> / <code>admin123</code></p>
+            </div>
+        </div>
+
+        <div class="setup-steps">
+            <h3><i class="fas fa-terminal"></i> Alternative: Command Line Setup</h3>
+            
+            <div class="step">
+                <h4>If you prefer command line:</h4>
+                <p>1. Install PHP from <a href="https://windows.php.net/download/" target="_blank">windows.php.net</a></p>
+                <p>2. Add PHP to your system PATH</p>
+                <p>3. Install MySQL separately</p>
+                <p>4. Run: <code>php -S localhost:8000</code> in your project directory</p>
+            </div>
+        </div>
+
+        <div class="status-check">
+            <h4><i class="fas fa-info-circle"></i> Check Your Setup Status</h4>
+            <p><strong>PHP Status:</strong> <span id="php-status">❌ Not detected</span></p>
+            <p><strong>Server Status:</strong> <span id="server-status">❌ Not running</span></p>
+            <p><strong>Recommended:</strong> Install XAMPP for the easiest setup experience.</p>
+        </div>
+
+        <div class="working-demo">
+            <h3>🎮 What You'll Get After Setup:</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+                <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h4><i class="fas fa-lock" style="color: #28a745;"></i> Real Authentication</h4>
+                    <p>Secure login system with database validation</p>
+                </div>
+                <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h4><i class="fas fa-database" style="color: #007bff;"></i> Data Persistence</h4>
+                    <p>All changes saved to MySQL database</p>
+                </div>
+                <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h4><i class="fas fa-upload" style="color: #ffc107;"></i> Image Upload</h4>
+                    <p>Upload and manage food images</p>
+                </div>
+                <div style="background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+                    <h4><i class="fas fa-users" style="color: #6f42c1;"></i> User Management</h4>
+                    <p>Role-based access control system</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="working-demo">
+            <h3>📱 Try These Demo Links:</h3>
+            <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                <a href="login-demo.html" class="download-btn">
+                    <i class="fas fa-sign-in-alt"></i> Login Demo
+                </a>
+                <a href="demo.html" class="download-btn">
+                    <i class="fas fa-tachometer-alt"></i> Dashboard Demo
+                </a>
+                <a href="index.html" class="download-btn" style="background: #6c757d;">
+                    <i class="fas fa-cog"></i> Full App (Needs PHP)
+                </a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Check if we can detect PHP or a running server
+        document.addEventListener('DOMContentLoaded', function() {
+            // Try to detect if PHP is available
+            fetch('index.php')
+                .then(response => {
+                    if (response.ok) {
+                        document.getElementById('server-status').innerHTML = '✅ Server running';
+                        document.getElementById('server-status').style.color = '#28a745';
+                        
+                        // Show success message
+                        const notice = document.querySelector('.setup-notice');
+                        notice.innerHTML = `
+                            <h2><i class="fas fa-check-circle"></i> Server is Running!</h2>
+                            <p>Great! Your PHP server is working.</p>
+                            <p><a href="index.php" style="color: white; text-decoration: underline;">Click here to access the full application</a></p>
+                        `;
+                        notice.style.background = 'linear-gradient(135deg, #28a745 0%, #20c997 100%)';
+                    }
+                })
+                .catch(error => {
+                    // Server not running, show setup instructions
+                    console.log('Server not running, showing setup instructions');
+                });
+
+            // Check if we're on localhost
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                document.getElementById('php-status').innerHTML = '⚠️ Localhost detected';
+                document.getElementById('php-status').style.color = '#ffc107';
+            }
+        });
+    </script>
+</body>
+</html>

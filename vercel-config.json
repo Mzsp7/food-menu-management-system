@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "name": "food-menu-management-system",
+  "routes": [
+    {
+      "src": "/",
+      "dest": "/index-landing.html"
+    },
+    {
+      "src": "/admin",
+      "dest": "/admin-panel.html"
+    },
+    {
+      "src": "/user",
+      "dest": "/user-panel.html"
+    },
+    {
+      "src": "/register",
+      "dest": "/user-register.html"
+    },
+    {
+      "src": "/login",
+      "dest": "/user-login.html"
+    },
+    {
+      "src": "/demo",
+      "dest": "/demo.html"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}

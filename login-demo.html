@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Menu Management System - Login</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .demo-notice {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            border-radius: 5px;
+        }
+        .demo-notice h3 {
+            margin: 0 0 0.5rem 0;
+        }
+        .demo-notice p {
+            margin: 0;
+            opacity: 0.9;
+        }
+        .demo-credentials {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        .demo-credentials h4 {
+            margin: 0 0 0.5rem 0;
+            color: #495057;
+        }
+        .demo-credentials p {
+            margin: 0.25rem 0;
+            font-family: monospace;
+            background: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            border: 1px solid #ced4da;
+        }
+        .quick-access {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        .quick-access a {
+            display: inline-block;
+            margin: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+        .quick-access a:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-notice">
+        <h3><i class="fas fa-info-circle"></i> Login Demo</h3>
+        <p>This is the login page of the Food Menu Management System. Use the demo credentials below to test the login functionality.</p>
+    </div>
+
+    <div id="app">
+        <!-- Login Page -->
+        <div id="login-page" class="page active">
+            <div class="login-container">
+                <div class="login-form">
+                    <h2><i class="fas fa-utensils"></i> Menu Manager</h2>
+                    <p style="text-align: center; color: #666; margin-bottom: 2rem;">Welcome to Food Menu Management System</p>
+                    
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" required autocomplete="username" placeholder="Enter your username">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required autocomplete="current-password" placeholder="Enter your password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-sign-in-alt"></i> Login
+                        </button>
+                    </form>
+                    
+                    <div class="demo-credentials">
+                        <h4><i class="fas fa-key"></i> Demo Credentials:</h4>
+                        <p><strong>Username:</strong> admin</p>
+                        <p><strong>Password:</strong> admin123</p>
+                        <small style="color: #6c757d;">Click the credentials above to auto-fill the form</small>
+                    </div>
+                    
+                    <div class="login-footer">
+                        <p>Don't have an account? <a href="#" id="show-register">Register here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Register Page -->
+        <div id="register-page" class="page">
+            <div class="login-container">
+                <div class="login-form">
+                    <h2>Create Account</h2>
+                    <p style="text-align: center; color: #666; margin-bottom: 2rem;">Join our Food Menu Management System</p>
+                    
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label for="reg-username">Username</label>
+                            <input type="text" id="reg-username" name="username" required autocomplete="username" placeholder="Choose a username">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-email">Email</label>
+                            <input type="email" id="reg-email" name="email" required autocomplete="email" placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-password">Password</label>
+                            <input type="password" id="reg-password" name="password" required autocomplete="new-password" placeholder="Create a password">
+                        </div>
+                        <div class="form-group">
+                            <label for="reg-confirm-password">Confirm Password</label>
+                            <input type="password" id="reg-confirm-password" name="confirm_password" required autocomplete="new-password" placeholder="Confirm your password">
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-user-plus"></i> Register
+                        </button>
+                    </form>
+                    <div class="login-footer">
+                        <p>Already have an account? <a href="#" id="show-login">Login here</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading" class="loading">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <div class="quick-access">
+        <h3>Quick Access:</h3>
+        <a href="demo.html"><i class="fas fa-tachometer-alt"></i> Skip to Dashboard Demo</a>
+        <a href="index.html"><i class="fas fa-cog"></i> Full Application (Requires PHP)</a>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Auto-fill demo credentials when clicked
+            document.querySelector('.demo-credentials').addEventListener('click', function() {
+                document.getElementById('username').value = 'admin';
+                document.getElementById('password').value = 'admin123';
+            });
+
+            // Login form handling
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Show loading
+                document.getElementById('loading').classList.add('active');
+                
+                // Simulate login process
+                setTimeout(() => {
+                    document.getElementById('loading').classList.remove('active');
+                    
+                    if (username === 'admin' && password === 'admin123') {
+                        showToast('Login successful! Redirecting to dashboard...', 'success');
+                        setTimeout(() => {
+                            window.location.href = 'demo.html';
+                        }, 1500);
+                    } else {
+                        showToast('Invalid credentials. Use admin/admin123', 'error');
+                    }
+                }, 1000);
+            });
+
+            // Register form handling
+            document.getElementById('register-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const password = document.getElementById('reg-password').value;
+                const confirmPassword = document.getElementById('reg-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    showToast('Passwords do not match', 'error');
+                    return;
+                }
+                
+                // Show loading
+                document.getElementById('loading').classList.add('active');
+                
+                // Simulate registration process
+                setTimeout(() => {
+                    document.getElementById('loading').classList.remove('active');
+                    showToast('Registration successful! Please login.', 'success');
+                    showLogin();
+                    document.getElementById('register-form').reset();
+                }, 1000);
+            });
+
+            // Navigation between login and register
+            document.getElementById('show-register').addEventListener('click', function(e) {
+                e.preventDefault();
+                showRegister();
+            });
+
+            document.getElementById('show-login').addEventListener('click', function(e) {
+                e.preventDefault();
+                showLogin();
+            });
+
+            function showLogin() {
+                document.getElementById('login-page').classList.add('active');
+                document.getElementById('register-page').classList.remove('active');
+            }
+
+            function showRegister() {
+                document.getElementById('register-page').classList.add('active');
+                document.getElementById('login-page').classList.remove('active');
+            }
+
+            function showToast(message, type = 'success') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                    ${message}
+                `;
+                
+                container.appendChild(toast);
+                
+                setTimeout(() => {
+                    toast.remove();
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

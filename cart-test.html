@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart Test - Food Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .item {
+            background: white;
+            padding: 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .item-info h3 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        .item-info p {
+            margin: 0;
+            color: #666;
+        }
+        .price {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        .controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .qty-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .qty-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .add-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .cart {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            min-width: 250px;
+        }
+        .cart-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .total {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <h1>🛒 Cart Functionality Test</h1>
+    <p>This is a simple test to verify the cart functionality works correctly.</p>
+
+    <div class="cart">
+        <h3>🛍️ Cart (<span id="cart-count">0</span>)</h3>
+        <div id="cart-items">
+            <p>Cart is empty</p>
+        </div>
+        <div class="total">
+            Total: ₹<span id="total">0</span>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="item-info">
+            <h3>Caesar Salad</h3>
+            <p>Fresh romaine lettuce with parmesan</p>
+            <div class="price">₹299</div>
+        </div>
+        <div class="controls">
+            <button class="qty-btn" onclick="changeQty(1, -1)" id="minus-1">-</button>
+            <span id="qty-1">0</span>
+            <button class="qty-btn" onclick="changeQty(1, 1)">+</button>
+            <button class="add-btn" onclick="addToCart(1)">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="item-info">
+            <h3>Grilled Chicken</h3>
+            <p>Tender grilled chicken breast</p>
+            <div class="price">₹449</div>
+        </div>
+        <div class="controls">
+            <button class="qty-btn" onclick="changeQty(2, -1)" id="minus-2">-</button>
+            <span id="qty-2">0</span>
+            <button class="qty-btn" onclick="changeQty(2, 1)">+</button>
+            <button class="add-btn" onclick="addToCart(2)">Add to Cart</button>
+        </div>
+    </div>
+
+    <div class="item">
+        <div class="item-info">
+            <h3>Chocolate Cake</h3>
+            <p>Rich chocolate cake with frosting</p>
+            <div class="price">₹199</div>
+        </div>
+        <div class="controls">
+            <button class="qty-btn" onclick="changeQty(3, -1)" id="minus-3">-</button>
+            <span id="qty-3">0</span>
+            <button class="qty-btn" onclick="changeQty(3, 1)">+</button>
+            <button class="add-btn" onclick="addToCart(3)">Add to Cart</button>
+        </div>
+    </div>
+
+    <script>
+        // Simple test data
+        const items = {
+            1: { name: "Caesar Salad", price: 299 },
+            2: { name: "Grilled Chicken", price: 449 },
+            3: { name: "Chocolate Cake", price: 199 }
+        };
+
+        let quantities = { 1: 0, 2: 0, 3: 0 };
+        let cart = [];
+
+        function changeQty(itemId, change) {
+            quantities[itemId] = Math.max(0, quantities[itemId] + change);
+            document.getElementById(`qty-${itemId}`).textContent = quantities[itemId];
+            document.getElementById(`minus-${itemId}`).disabled = quantities[itemId] <= 0;
+            
+            console.log(`Quantity for item ${itemId}: ${quantities[itemId]}`);
+        }
+
+        function addToCart(itemId) {
+            const qty = quantities[itemId];
+            
+            if (qty > 0) {
+                const existingItem = cart.find(item => item.id === itemId);
+                
+                if (existingItem) {
+                    existingItem.quantity += qty;
+                } else {
+                    cart.push({
+                        id: itemId,
+                        name: items[itemId].name,
+                        price: items[itemId].price,
+                        quantity: qty
+                    });
+                }
+                
+                quantities[itemId] = 0;
+                document.getElementById(`qty-${itemId}`).textContent = 0;
+                document.getElementById(`minus-${itemId}`).disabled = true;
+                
+                updateCart();
+                alert(`${items[itemId].name} added to cart!`);
+            } else {
+                // Quick add 1 item
+                const existingItem = cart.find(item => item.id === itemId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: itemId,
+                        name: items[itemId].name,
+                        price: items[itemId].price,
+                        quantity: 1
+                    });
+                }
+                
+                updateCart();
+                alert(`${items[itemId].name} added to cart!`);
+            }
+            
+            console.log('Cart:', cart);
+        }
+
+        function updateCart() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cart-items');
+            const total = document.getElementById('total');
+            
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            cartCount.textContent = totalItems;
+            total.textContent = totalPrice;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Cart is empty</p>';
+            } else {
+                cartItems.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <strong>${item.name}</strong><br>
+                        Qty: ${item.quantity} × ₹${item.price} = ₹${item.price * item.quantity}
+                        <button onclick="removeFromCart(${item.id})" style="float: right; background: #dc3545; color: white; border: none; padding: 2px 6px; border-radius: 3px; cursor: pointer;">×</button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function removeFromCart(itemId) {
+            cart = cart.filter(item => item.id !== itemId);
+            updateCart();
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCart();
+            
+            // Disable minus buttons initially
+            document.getElementById('minus-1').disabled = true;
+            document.getElementById('minus-2').disabled = true;
+            document.getElementById('minus-3').disabled = true;
+        });
+    </script>
+</body>
+</html>
